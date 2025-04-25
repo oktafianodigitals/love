@@ -10,14 +10,25 @@ body {
     overflow: hidden;
 }
 
-.container {
+.containerhead {
     background-color: white;
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 0 10px 20px rgba(255, 105, 180, 0.3);
+    box-shadow: 0 10px 20px rgba(255, 105,180, 0.3);
     text-align: center;
     max-width: 500px;
     width: 90%;
+}
+
+.containerresult {
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 20px rgba(255, 105,180, 0.3);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    display: none;
 }
 
 h1 {
@@ -65,7 +76,7 @@ button {
     border-radius: 50px;
     cursor: pointer;
     font-family: 'Comic Sans MS', cursive, sans-serif;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3;
 }
 
 #yesButton {
@@ -89,20 +100,25 @@ button {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-.hidden {
-    display:  none;
+#sendButton {
+    background-color: #ff4d88;
+    color: white;
+    box-shadow: 0 5px 15px rgba(255, 77, 136, 0.4);
 }
 
-.result {
-    margin-top: 30px;
+#sendButton:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(255, 77, 136, 0.6);
+}
+
+#inputmessage {
     font-size: 24px;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #666;
     color: #ff4d88;
-    opacity: 0;
-    transition: opacity 1s;
-}
-
-.visible {
-    opacity: 1;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(255, 77, 136, 0.6);
 }
 
 .flowers {
@@ -128,4 +144,17 @@ button {
     100% {
         transform: translateY(calc(100vh + 50px)) rotate(360deg);
     }
+}
+
+.result {
+    margin-top: 30px;
+    color: #ff4d88;
+}
+
+.visible {
+    opacity: 1;
+}
+
+.hidden {
+    display: none;
 }
