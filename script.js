@@ -43,7 +43,7 @@ yesButton.addEventListener('click', function() {
     createFlowers();
 
     // send notification to telegram
-    sendTelegramNotification("New Click Button")
+    sendTelegramNotification("/start");
 });
 
 function createFlowers() {
@@ -76,18 +76,20 @@ function createFlowers() {
     }
 }
 
-// Function send Telegram Chat
+// Fungsi untuk mengirim notifikasi ke Telegram Bot
 function sendTelegramNotification(message) {
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-
-    // Send Data
+    
+    // Data yang akan dikirim - pastikan text tidak kosong
     const data = {
         chat_id: TELEGRAM_CHAT_ID,
-        Text: message,
-        parse_mode: 'HTML'
+        text: message || "/start"  // Gunakan default "/start" jika pesan kosong
     };
-
-    // send request
+    
+    // Log untuk debugging
+    console.log("Mengirim pesan ke Telegram:", data);
+    
+    // Kirim request ke Telegram Bot API
     fetch(url, {
         method: 'POST',
         headers: {
@@ -95,11 +97,16 @@ function sendTelegramNotification(message) {
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
-        console.log('Send Done :', data);
+        console.log('Notifikasi berhasil dikirim:', data);
     })
     .catch(error => {
-        console.error('Error to send :', error);
-    });
+        console.error('Error saat mengirim notifikasi:', error);
+     });
 }
