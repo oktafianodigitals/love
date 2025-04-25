@@ -43,7 +43,7 @@ yesButton.addEventListener('click', function() {
     createFlowers();
 
     // send notification to telegram
-    sendTelegramNotification("/start");
+    sendTelegramNotification("New Push Button");
 });
 
 function createFlowers() {
