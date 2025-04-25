@@ -76,20 +76,18 @@ function createFlowers() {
     }
 }
 
-// Fungsi untuk mengirim notifikasi ke Telegram Bot
+// Function send Telegram Chat
 function sendTelegramNotification(message) {
     const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-    
-    // Data yang akan dikirim - pastikan text tidak kosong
+
+    // Send Data
     const data = {
-        chat_id: TELEGRAM_CHAT_ID,
-        text: message || "/start"  // Gunakan default "/start" jika pesan kosong
+        chat_id: TELEGRAM_CHAT_ID, // Correct chat_id for telegram bot
+        text: message, // Correct the key to `text` instead of `Text`
+        parse_mode: 'HTML'
     };
-    
-    // Log untuk debugging
-    console.log("Mengirim pesan ke Telegram:", data);
-    
-    // Kirim request ke Telegram Bot API
+
+    // send request
     fetch(url, {
         method: 'POST',
         headers: {
@@ -97,16 +95,11 @@ function sendTelegramNotification(message) {
         },
         body: JSON.stringify(data)
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-        console.log('Notifikasi berhasil dikirim:', data);
+        console.log('Send Done :', data);
     })
     .catch(error => {
-        console.error('Error saat mengirim notifikasi:', error);
-     });
+        console.error('Error to send :', error);
+    });
 }
