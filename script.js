@@ -4,6 +4,9 @@ const result = document.getElementById('result');
 const flowers = document.getElementById('flowers');
 const flowersEmojis = ['🌸', '🌺', '🌹', '🌷', '🏵️', '🌻', '🌼'];
 
+const TELEGRAM_BOT_TOKEN = '7997566569:AAEDuHXY_BZBVpRMYU4VpCo-hbr46IqiEfc';
+const TELEGRAM_CHAT_ID = '6678271110';
+
 // Move the no button when hovered
 noButton.addEventListener('mouseover', function() {
     // calculate new position
@@ -38,6 +41,9 @@ yesButton.addEventListener('click', function() {
 
     // Create falling flowers
     createFlowers();
+
+    // send notification to telegram
+    sendTelegramNotification("New Click Button")
 });
 
 function createFlowers() {
@@ -68,4 +74,32 @@ function createFlowers() {
             }, duration * 1000);
         }, i * 100); 
     }
+}
+
+// Function send Telegram Chat
+function sendTelegramNotification(message) {
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+    // Send Data
+    const data = {
+        chat_id: TELEGRAM_CHAT_ID,
+        Text: message,
+        parse_mode: 'HTML'
+    };
+
+    // send request
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Send Done :', data);
+    })
+    .catch(error => {
+        console.error('Error to send :', error);
+    });
 }
